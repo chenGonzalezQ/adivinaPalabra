@@ -6,13 +6,25 @@ import { palabras } from './assets/datos/palabrasArray'
 import acierto from './assets/sonidos/aciertoPalabra.mp3'
 import fallo from './assets/sonidos/incorrectaPalabra.mp3'
 import victoriia from './assets/sonidos/victoria.mp3'
+import ahorca from './assets/sonidos/ahorcado.mp3'
+import horca00 from './assets/imagenes/horca00.png'
+import horca0 from './assets/imagenes/horca0.jpeg'
+import horca1 from './assets/imagenes/horca1.jpeg'
+import horca2 from './assets/imagenes/horca2.jpeg'
+import horca3 from './assets/imagenes/horca3.jpeg'
+import horca4 from './assets/imagenes/horca4.jpeg'
+import horca5 from './assets/imagenes/horca5.jpeg'
+import horca6 from './assets/imagenes/horca6.jpeg'
 
 function App() {
 
   const sonidoAcierto = new Audio(acierto);
   const sonidoFallo = new Audio(fallo);
   const victoria= new Audio(victoriia)
+  const ahorcado= new Audio(ahorca)
+  const imagenHorca:string[]=[horca00,horca0,horca1,horca2,horca3,horca4,horca5,horca6]
 
+  const[contadoravancehorca,setContadorAvanceHorca]=useState(0)
   const [aciertos,setAciertos]=useState<string[]>([])
   const [desaciertos,setDesAciertos]=useState<string[]>([])
   const [deshabilitado,setDeshabilitado]= useState(false)
@@ -20,8 +32,8 @@ function App() {
   const indice = Math.floor(Math.random() * palabras.length);
   return palabras[indice].split("");
 });
-  const [intentos,setIntentos]=useState(5)
-  const [mensaje,setMensaje]=useState('')
+  const [intentos,setIntentos]=useState(7)
+  const [mensajevictoria,setMensajeVictoria]=useState('')
   //const [palabrarevelada,setPalabraRevelada]=useState('')
   const[palabraoculta,setPalabraOculta]= useState(palabra)
 const[revelarpalabra,setRevelarPalabra]=useState(true)
@@ -29,15 +41,18 @@ const[deshabilitarboton,setDeshabilitarBoton]=useState(true)
 
   const verificarLetra=(letra:string)=>{
     //console.log(palabra)
-    const l= letra.toLowerCase();
-     if(!palabra.includes(l)){
-      if(!desaciertos.includes(l)){
+    const letraIngresada= letra.toLowerCase();
+     if(!palabra.includes(letraIngresada)){
+      if(!desaciertos.includes(letraIngresada)){
         sonidoFallo.play();
-       setDesAciertos([...desaciertos,l])
+        setContadorAvanceHorca(contadoravancehorca=>contadoravancehorca+1)
+       setDesAciertos([...desaciertos,letraIngresada])
          setIntentos(intentos-1)
+       
       }
        
                   if(intentos<=1){
+                    ahorcado.play();
                    setDeshabilitado(true)
                    setRevelarPalabra(false)
                    setDeshabilitarBoton(false)
@@ -47,13 +62,13 @@ const[deshabilitarboton,setDeshabilitarBoton]=useState(true)
           
 }else{
   sonidoAcierto.play();
-const nuevos=[...aciertos,l]
+const nuevos=[...aciertos,letraIngresada]
  setAciertos(nuevos)
  
  if (palabra.every(letra => nuevos.includes(letra))) {
    victoria.play();
     setDeshabilitado(true)
-   setMensaje('GANASTE!!!!')
+   setMensajeVictoria('GANASTE!!!!')
     setDeshabilitarBoton(false)
 }
 }
@@ -62,12 +77,13 @@ const nuevos=[...aciertos,l]
   const reiniciar=()=>{
      const indice = Math.floor(Math.random() * palabras.length);
   setPalabra(palabras[indice].split(""));
-  //setPalabraOculta(palabra)
+  
+  setContadorAvanceHorca(0)
     setAciertos([])
-    setIntentos(5)
+    setIntentos(7)
     setDesAciertos([])
     setDeshabilitado(false)
-     setMensaje('')
+     setMensajeVictoria('')
        setDeshabilitarBoton(true)
      setPalabraOculta([])
      setRevelarPalabra(true)
@@ -81,7 +97,7 @@ const nuevos=[...aciertos,l]
     
    
    <div className='contenedor-palabra'>
-    <h3>{mensaje}</h3>
+    <h3>{mensajevictoria}</h3>
     <div className='palabra-oculta'>
     {palabra.map((letra,index)=>(
              <Tarjeta key={index} letra={letra} visible={aciertos.includes(letra)} />
@@ -96,9 +112,18 @@ const nuevos=[...aciertos,l]
 />
     <span>Intentos restantes : {intentos}</span>
     <span style={{color:'red'}}> Letras equivocadas : {desaciertos}</span>
-
+  
     <span hidden={revelarpalabra}>La palabra oculta era : {palabraoculta}</span>
     <button disabled={deshabilitarboton} onClick={reiniciar}>Reinicio</button>
+    <div>
+      <img 
+        src={imagenHorca[contadoravancehorca]} 
+        alt="estado-ahorcado"
+        style={{ width: "250px" }}
+      />
+
+     
+    </div>
   </div>
   )
 }

@@ -1,5 +1,10 @@
+
+
+
+
 .contenedor-palabra {
-  font-size: 22px;
+  font-style: italic;
+  font-size: 24px;
   display: flex;
   flex-direction: column; /* ← coloca los items uno debajo del otro */
   align-items: center;     /* ← centra todo horizontalmente */
@@ -23,6 +28,7 @@
 }
 
 .letra {
+  font-size: large;
   display: inline-block;
   transition: transform 0.3s ease;
 }
