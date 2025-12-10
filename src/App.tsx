@@ -28,6 +28,7 @@ function App() {
   const [aciertos,setAciertos]=useState<string[]>([])
   const [desaciertos,setDesAciertos]=useState<string[]>([])
   const [deshabilitado,setDeshabilitado]= useState(false)
+ 
  const [palabra, setPalabra] = useState<string[]>(() => {
   const indice = Math.floor(Math.random() * palabras.length);
   return palabras[indice].split("");
@@ -105,7 +106,7 @@ const nuevos=[...aciertos,letraIngresada]
    
     </div>
   
-      <input placeholder="Ingresa letra a buscar..." disabled={deshabilitado} type="text" maxLength={1} onChange={(e) => {
+      <input placeholder="Ingresa letra a adivinar..." disabled={deshabilitado} type="text" maxLength={1} onChange={(e) => {
     verificarLetra(e.target.value);
     e.target.value = ""; // ← limpia el input
   }}
