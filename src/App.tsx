@@ -11,7 +11,8 @@ function App() {
 
   const sonidoAcierto = new Audio(acierto);
   const sonidoFallo = new Audio(fallo);
- const victoria= new Audio(victoriia)
+  const victoria= new Audio(victoriia)
+
   const [aciertos,setAciertos]=useState<string[]>([])
   const [desaciertos,setDesAciertos]=useState<string[]>([])
   const [deshabilitado,setDeshabilitado]= useState(false)
@@ -88,7 +89,7 @@ const nuevos=[...aciertos,l]
    
     </div>
   
-      <input disabled={deshabilitado} type="text" maxLength={1} onChange={(e) => {
+      <input placeholder="Ingresa letra a buscar..." disabled={deshabilitado} type="text" maxLength={1} onChange={(e) => {
     verificarLetra(e.target.value);
     e.target.value = ""; // ← limpia el input
   }}
