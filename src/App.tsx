@@ -48,12 +48,16 @@ const[deshabilitarboton,setDeshabilitarBoton]=useState(true)
         sonidoFallo.play();
         setContadorAvanceHorca(contadoravancehorca=>contadoravancehorca+1)
        setDesAciertos([...desaciertos,letraIngresada])
-         setIntentos(intentos-1)
+         setIntentos((intentos)=>intentos-1)
        
       }
        
                   if(intentos<=1){
-                    ahorcado.play();
+
+                    setTimeout(() => {
+                        ahorcado.play();
+                    }, 1000);
+                  
                    setDeshabilitado(true)
                    setRevelarPalabra(false)
                    setDeshabilitarBoton(false)
