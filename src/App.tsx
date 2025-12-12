@@ -42,7 +42,7 @@ function App() {
     return palabras[indice].split("");
   });
   const [intentos, setIntentos] = useState(7);
-  const [mensajevictoria, setMensajeVictoria] = useState("");
+
   const [estado, setEstado] = useState(false);
   const [palabraoculta, setPalabraOculta] = useState(palabra);
   const [revelarpalabra, setRevelarPalabra] = useState(true);
@@ -78,9 +78,9 @@ function App() {
 
       if (palabra.every((letra) => nuevos.includes(letra))) {
         victoria.play();
-        setEstado(true);
+        setEstado(true); //
         setDeshabilitado(true);
-        setMensajeVictoria("GANASTE!!!!");
+
         setDeshabilitarBoton(false);
       }
     }
@@ -95,7 +95,7 @@ function App() {
     setIntentos(7);
     setDesAciertos([]);
     setDeshabilitado(false);
-    setMensajeVictoria("");
+
     setDeshabilitarBoton(true);
     setPalabraOculta([]);
     setRevelarPalabra(true);
@@ -105,7 +105,9 @@ function App() {
   return (
     <div className="contenedor-palabra">
       <h1>Juego del ahorcado</h1>
-      <h3>{mensajevictoria}</h3>
+      <h3 className={estado ? "victoria" : ""}>
+        {estado ? "GANASTE !!!" : ""}
+      </h3>
       <div className="palabra-oculta">
         {palabra.map((letra, index) => (
           <Tarjeta

@@ -33,3 +33,41 @@
 .letra.visible {
   animation: aparecer 0.4s ease forwards;
 }
+
+.victoria {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #00c853; /* verde bonito */
+  animation: fadeZoom 0.8s ease forwards, brillo 2s infinite ease-in-out;
+  text-align: center;
+  margin-top: 20px;
+}
+
+/* Animación de aparecer + pequeño zoom */
+@keyframes fadeZoom {
+  0% {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Brillito suave */
+@keyframes brillo {
+  0% {
+    text-shadow: 0 0 8px rgba(0, 255, 100, 0.4);
+  }
+  50% {
+    text-shadow: 0 0 20px rgba(0, 255, 100, 0.9);
+  }
+  100% {
+    text-shadow: 0 0 8px rgba(0, 255, 100, 0.4);
+  }
+}
