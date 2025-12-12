@@ -7,14 +7,16 @@ import fallo from "./assets/sonidos/incorrectaPalabra.mp3";
 import victoriia from "./assets/sonidos/victoria.mp3";
 import { ReinicioIcono } from "./componentes/iconos/Iconos";
 import ahorca from "./assets/sonidos/ahorcado.mp3";
-import horca00 from "./assets/imagenes/horca00.png";
-import horca0 from "./assets/imagenes/horca0.jpeg";
+
+import horca0 from "./assets/imagenes/horca0.png";
 import horca1 from "./assets/imagenes/horca1.jpeg";
 import horca2 from "./assets/imagenes/horca2.jpeg";
 import horca3 from "./assets/imagenes/horca3.jpeg";
 import horca4 from "./assets/imagenes/horca4.jpeg";
 import horca5 from "./assets/imagenes/horca5.jpeg";
 import horca6 from "./assets/imagenes/horca6.jpeg";
+import horca7 from "./assets/imagenes/horca7.jpeg";
+
 import ganar from "./assets/imagenes/ganar.png";
 function App() {
   const sonidoAcierto = new Audio(acierto);
@@ -22,7 +24,6 @@ function App() {
   const victoria = new Audio(victoriia);
   const ahorcado = new Audio(ahorca);
   const imagenHorca: string[] = [
-    horca00,
     horca0,
     horca1,
     horca2,
@@ -30,6 +31,7 @@ function App() {
     horca4,
     horca5,
     horca6,
+    horca7,
   ];
 
   const [contadoravancehorca, setContadorAvanceHorca] = useState(0);
@@ -41,7 +43,7 @@ function App() {
     const indice = Math.floor(Math.random() * palabras.length);
     return palabras[indice].split("");
   });
-  const [intentos, setIntentos] = useState(7);
+  //const [intentos, setIntentos] = useState(7);
 
   const [estado, setEstado] = useState(false);
   const [palabraoculta, setPalabraOculta] = useState(palabra);
@@ -54,14 +56,15 @@ function App() {
     if (!palabra.includes(letraIngresada)) {
       if (!desaciertos.includes(letraIngresada)) {
         sonidoFallo.play();
-        setContadorAvanceHorca(
-          (contadoravancehorca) => contadoravancehorca + 1
+        setContadorAvanceHorca((prev) =>
+          Math.min(prev + 1, imagenHorca.length - 1)
         );
+        console.log(contadoravancehorca);
+        //setIntentos((intentos) => intentos - 1);
         setDesAciertos([...desaciertos, letraIngresada]);
-        setIntentos((intentos) => intentos - 1);
       }
 
-      if (intentos <= 1) {
+      if (contadoravancehorca === 6) {
         setTimeout(() => {
           ahorcado.play();
         }, 1000);
@@ -92,7 +95,7 @@ function App() {
 
     setContadorAvanceHorca(0);
     setAciertos([]);
-    setIntentos(7);
+    //setIntentos(7);
     setDesAciertos([]);
     setDeshabilitado(false);
 
@@ -128,7 +131,7 @@ function App() {
           e.target.value = ""; // ← limpia el input
         }}
       />
-      <span>Intentos restantes : {intentos}</span>
+      <span>Intentos restantes : {contadoravancehorca}</span>
       <span style={{ backgroundColor: "" }}>
         {" "}
         Letras equivocadas : {desaciertos}
