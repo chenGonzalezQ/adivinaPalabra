@@ -1,11 +1,18 @@
-import { FaQuestion } from "react-icons/fa";
+import { BsQuestionLg } from "react-icons/bs";
+import { VscDebugRestart } from "react-icons/vsc";
 
+export default function PreguntaIcono() {
+  return (
+    <>
+      <BsQuestionLg />
+    </>
+  );
+}
 
-export default function PreguntaIcono(){
-
-    return (
-        <>
-        <FaQuestion/>
-        </>
-    )
+export function ReinicioIcono() {
+  return (
+    <>
+      <VscDebugRestart />
+    </>
+  );
 }
