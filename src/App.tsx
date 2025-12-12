@@ -15,7 +15,7 @@ import horca3 from "./assets/imagenes/horca3.jpeg";
 import horca4 from "./assets/imagenes/horca4.jpeg";
 import horca5 from "./assets/imagenes/horca5.jpeg";
 import horca6 from "./assets/imagenes/horca6.jpeg";
-
+import ganar from "./assets/imagenes/ganar.png";
 function App() {
   const sonidoAcierto = new Audio(acierto);
   const sonidoFallo = new Audio(fallo);
@@ -43,7 +43,7 @@ function App() {
   });
   const [intentos, setIntentos] = useState(7);
   const [mensajevictoria, setMensajeVictoria] = useState("");
-  //const [palabrarevelada,setPalabraRevelada]=useState('')
+  const [estado, setEstado] = useState(false);
   const [palabraoculta, setPalabraOculta] = useState(palabra);
   const [revelarpalabra, setRevelarPalabra] = useState(true);
   const [deshabilitarboton, setDeshabilitarBoton] = useState(true);
@@ -78,6 +78,7 @@ function App() {
 
       if (palabra.every((letra) => nuevos.includes(letra))) {
         victoria.play();
+        setEstado(true);
         setDeshabilitado(true);
         setMensajeVictoria("GANASTE!!!!");
         setDeshabilitarBoton(false);
@@ -98,6 +99,7 @@ function App() {
     setDeshabilitarBoton(true);
     setPalabraOculta([]);
     setRevelarPalabra(true);
+    setEstado(false);
   };
 
   return (
@@ -142,7 +144,7 @@ function App() {
       </button>
       <div>
         <img
-          src={imagenHorca[contadoravancehorca]}
+          src={estado ? ganar : imagenHorca[contadoravancehorca]}
           alt="estado-ahorcado"
           style={{ width: "250px" }}
         />
